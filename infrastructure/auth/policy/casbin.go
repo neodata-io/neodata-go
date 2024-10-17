@@ -1,35 +1,23 @@
-package authorization
+package policy
 
 import (
 	"fmt"
 
 	"github.com/casbin/casbin/v2"
 	xormadapter "github.com/casbin/xorm-adapter/v3"
+	"github.com/neodata-io/neodata-go/config"
 )
 
 // InitializeCasbin creates and returns a new Casbin enforcer with a PostgreSQL adapter.
-func InitializeCasbin(dbUser string, dbPassword string, dbHost string, dbPort string, dbName string) (*casbin.Enforcer, error) {
-	// Validate mandatory environment variables
-	if dbUser == "" {
-		return nil, fmt.Errorf("missing environment variable: DB_USER")
-	}
-	if dbHost == "" {
-		return nil, fmt.Errorf("missing environment variable: DB_HOST")
-	}
-	if dbPort == "" {
-		return nil, fmt.Errorf("missing environment variable: DB_PORT")
-	}
-	if dbName == "" {
-		return nil, fmt.Errorf("missing environment variable: DB_NAME")
-	}
-	// Construct the database URL
+func InitializeCasbin(cfg *config.AppConfig) (*casbin.Enforcer, error) {
+
 	databaseUrl := fmt.Sprintf(
-		"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
-		dbUser,
-		dbPassword,
-		dbName,
-		dbHost,
-		dbPort,
+		"user=%s password=%s dbname=%s host=%s port=%d sslmode=disable",
+		cfg.Database.User,
+		cfg.Database.Password,
+		cfg.Database.Name,
+		cfg.Database.Host,
+		cfg.Database.Port,
 	)
 
 	// Connect to PostgreSQL as the adapter for Casbin

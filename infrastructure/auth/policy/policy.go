@@ -1,19 +1,25 @@
-package authorization
+package policy
 
 import (
 	"fmt"
 
 	"github.com/casbin/casbin/v2"
+	"github.com/neodata-io/neodata-go/config"
 )
 
 type PolicyManager struct {
 	e *casbin.Enforcer
 }
 
-func NewPolicyManager(enforcer *casbin.Enforcer) *PolicyManager {
+func NewPolicyManager(cfg *config.AppConfig) (*PolicyManager, error) {
+	// TODO: implement caching or singleton to prevent initiated multiple times
+	enforcer, err := InitializeCasbin(cfg)
+	if err != nil {
+		return nil, fmt.Errorf("error adding policy: %v", err)
+	}
 	return &PolicyManager{
 		e: enforcer,
-	}
+	}, nil
 }
 
 // AddPolicyForUser adds a specific policy for a user with an effect (e.g., allow or deny)
