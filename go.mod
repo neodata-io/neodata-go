@@ -1,4 +1,4 @@
-module github.com/rubenclaes/neodata-go
+module github.com/neodata-io/neodata-go
 
 go 1.21.0
 
