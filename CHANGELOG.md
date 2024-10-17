@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/neodata-io/neodata-go/compare/v1.1.2...v1.1.3) (2024-10-17)
+
+
+### Bug Fixes
+
+* update readme ([e8b05dd](https://github.com/neodata-io/neodata-go/commit/e8b05ddc7eedec474d717b5e611bee7d3ee2491c))
+
 ## [1.1.2](https://github.com/neodata-io/neodata-go/compare/v1.1.1...v1.1.2) (2024-10-17)
 
 
