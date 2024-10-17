@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/rubenclaes/neodata-go/config"
+	"github.com/neodata-io/neodata-go/config"
 )
 
 // SetupHTTPServer initializes a new HTTP server with the provided configuration and middleware.

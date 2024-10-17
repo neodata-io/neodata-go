@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/rubenclaes/neodata-go/config"
+	"github.com/neodata-io/neodata-go/config"
 )
 
 // NewPostgresPool initializes a PostgreSQL connection pool with given parameters.
