@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/yourcompany/neodata-go/config"
-	"github.com/yourcompany/neodata-go/database"
-	"github.com/yourcompany/neodata-go/http"
+	"github.com/rubenclaes/neodata-go/config"
+	"github.com/rubenclaes/neodata-go/db"
+	"github.com/rubenclaes/neodata-go/http"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 	}
 
 	// Initialize database connection
-	dbPool, err := database.NewPostgresPool(cfg.DatabaseDSN)
+	dbPool, err := db.NewPostgresPool(cfg.DatabaseDSN)
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
@@ -30,7 +30,7 @@ func main() {
 	app.Use(http.RateLimiterMiddleware(100, time.Minute))
 
 	// Define routes
-	app.Get("/health", func(c *fiber.Ctx) error {
+	app.Get("/health", func(c fiber.Ctx) error {
 		return c.SendString("Service is running")
 	})
 
