@@ -1,0 +1,40 @@
+# Application configuration
+app:
+  name: user-microservice
+  port: 8080
+  read_timeout: 10
+  write_timeout: 10
+  rate_limit: 100
+
+# Database configuration
+database:
+  host: localhost
+  port: 5432
+  name: user_service_db
+  user: your_db_user
+  password: your_secure_password
+  sslmode: disable
+
+# Event store configuration
+eventStore:
+  type: kafka # Could be EventStoreDB, Kafka, or any event store solution
+  brokers:
+    - localhost:9092
+  topic: user-events
+
+# JWT configuration
+auth:
+  jwtSecret: your_jwt_secret
+  tokenExpiry: 3600 # Expiry in seconds
+
+# Logging configuration
+logging:
+  level: INFO # Could be DEBUG, INFO, WARN, ERROR
+  output: stdout
+
+# Redis (for caching projections)
+cache:
+  host: localhost
+  port: 6379
+  password: ""
+  db: 0
