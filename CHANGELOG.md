@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/neodata-io/neodata-go/compare/v1.1.1...v1.1.2) (2024-10-17)
+
+
+### Bug Fixes
+
+* runs on ubuntu latest ([3ca0755](https://github.com/neodata-io/neodata-go/commit/3ca07552dbf76535350f8db8d1f9b096882ddfa8))
+
 ## [1.1.1](https://github.com/neodata-io/neodata-go/compare/v1.1.0...v1.1.1) (2024-10-17)
 
 
