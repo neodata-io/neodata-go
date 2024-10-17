@@ -67,10 +67,10 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/horse-rider-training:${{ needs.release.outputs.latest_tag }}
-            ghcr.io/${{ github.actor }}/horse-rider-training:latest
+            ghcr.io/${{ github.repository }}:${{ needs.release.outputs.latest_tag }}
+            ghcr.io/${{ github.repository }}:latest
 
       - name: Push Docker Image with Version Tag
         run: |
-          docker push ghcr.io/${{ github.actor }}/horse-rider-training:${{ needs.release.outputs.latest_tag }}
-          docker push ghcr.io/${{ github.actor }}/horse-rider-training:latest
+          docker push ghcr.io/${{ github.repository }}:${{ needs.release.outputs.latest_tag }}
+          docker push ghcr.io/${{ github.repository }}:latest
