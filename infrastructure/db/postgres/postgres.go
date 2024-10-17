@@ -1,5 +1,5 @@
 // db/postgres.go
-package db
+package postgres
 
 import (
 	"context"
@@ -11,9 +11,9 @@ import (
 	"github.com/neodata-io/neodata-go/config"
 )
 
-// NewPostgresPool initializes a PostgreSQL connection pool with given parameters.
+// NewPool initializes a PostgreSQL connection pool with given parameters.
 // It validates required parameters and returns an error if any are missing.
-func NewPostgresPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
+func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	// Validate mandatory environment variables
 	if cfg.Database.User == "" {
 		return nil, fmt.Errorf("missing database user in configuration")
