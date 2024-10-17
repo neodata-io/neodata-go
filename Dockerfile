@@ -30,8 +30,8 @@ WORKDIR /
 COPY --from=builder /neodata-go /neodata-go
 
 # Copy Casbin configuration file to the runtime container
-COPY ./configs/casbin/rbac_model.conf /app/configs/casbin/rbac_model.conf
-COPY ./configs/casbin/policy.csv /app/configs/casbin/policy.csv
+COPY ./config/casbin/rbac_model.conf /app/config/casbin/rbac_model.conf
+COPY ./config/casbin/policy.csv /app/config/casbin/policy.csv
 
 # Expose the application port to the host
 EXPOSE 8080
