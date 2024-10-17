@@ -1,0 +1,5 @@
+# Policy lines for various roles and resources
+
+# Example in Casbin policy format
+p, User, training, create
+p, Admin, *, *
