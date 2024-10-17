@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/neodata-io/neodata-go/compare/v1.1.4...v1.1.5) (2024-10-17)
+
+
+### Bug Fixes
+
+* refactor into postrgrss dir ([563cc1f](https://github.com/neodata-io/neodata-go/commit/563cc1fb07c31ab372c211582829106b67352c98))
+
 ## [1.1.4](https://github.com/neodata-io/neodata-go/compare/v1.1.3...v1.1.4) (2024-10-17)
 
 
