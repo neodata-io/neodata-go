@@ -17,7 +17,7 @@ type AppConfig struct {
 		RateLimit    int           `mapstructure:"rate_limit"`
 	} `mapstructure:"app"`
 	Database struct {
-		Host     string `mapstructure:"dsn"`
+		Host     string `mapstructure:"host"`
 		Port     int    `mapstructure:"port"`
 		Name     string `mapstructure:"name"`
 		User     string `mapstructure:"user"`
