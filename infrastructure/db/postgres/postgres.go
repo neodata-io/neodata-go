@@ -12,7 +12,6 @@ import (
 )
 
 // NewPool initializes a PostgreSQL connection pool with given parameters.
-// It validates required parameters and returns an error if any are missing.
 func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	// Validate mandatory environment variables
 	if cfg.Database.User == "" {
