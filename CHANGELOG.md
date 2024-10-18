@@ -1,3 +1,10 @@
+## [1.3.10](https://github.com/neodata-io/neodata-go/compare/v1.3.9...v1.3.10) (2024-10-18)
+
+
+### Bug Fixes
+
+* use default logger ([5a3363a](https://github.com/neodata-io/neodata-go/commit/5a3363a8e075c439ac96146e18bf94a0a0b2407b))
+
 ## [1.3.9](https://github.com/neodata-io/neodata-go/compare/v1.3.8...v1.3.9) (2024-10-18)
 
 
