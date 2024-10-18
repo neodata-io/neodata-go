@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/neodata-io/neodata-go/compare/v1.2.3...v1.2.4) (2024-10-18)
+
+
+### Bug Fixes
+
+* casbin ([ecec943](https://github.com/neodata-io/neodata-go/commit/ecec9431ef10ee7668ea4b27a1a6dd035ffa933d))
+
 ## [1.2.3](https://github.com/neodata-io/neodata-go/compare/v1.2.2...v1.2.3) (2024-10-18)
 
 
