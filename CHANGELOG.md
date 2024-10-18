@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/neodata-io/neodata-go/compare/v1.3.0...v1.3.1) (2024-10-18)
+
+
+### Bug Fixes
+
+* path to casbin conf file ([d6573a5](https://github.com/neodata-io/neodata-go/commit/d6573a5d2ec9c3fb0a178dba6e827683084a28f6))
+
 # [1.3.0](https://github.com/neodata-io/neodata-go/compare/v1.2.5...v1.3.0) (2024-10-18)
 
 
