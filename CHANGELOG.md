@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/neodata-io/neodata-go/compare/v1.2.2...v1.2.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* color logger ([46211f1](https://github.com/neodata-io/neodata-go/commit/46211f1dd44aad900f49157af9f5a694c7f05ca2))
+
 ## [1.2.2](https://github.com/neodata-io/neodata-go/compare/v1.2.1...v1.2.2) (2024-10-18)
 
 
