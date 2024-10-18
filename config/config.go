@@ -15,6 +15,7 @@ type AppConfig struct {
 		WriteTimeout time.Duration `mapstructure:"write_timeout"`
 		Env          string        `mapstructure:"env"`
 		RateLimit    int           `mapstructure:"rate_limit"`
+		Secret       string        `mapstructure:"secret"`
 	} `mapstructure:"app"`
 
 	Database struct {
@@ -27,8 +28,8 @@ type AppConfig struct {
 	} `mapstructure:"database"`
 
 	Auth struct {
-		JwtSecret   string `mapstructure:"jwtSecret"`
-		TokenExpiry int    `mapstructure:"tokenExpiry"`
+		JwtSecret   string        `mapstructure:"jwtSecret"`
+		TokenExpiry time.Duration `mapstructure:"tokenExpiry"`
 	}
 
 	Logger struct {
@@ -55,6 +56,7 @@ func LoadConfig(configPath string) (*AppConfig, error) {
 	//viper.BindEnv("database.password", "DB_PASSWORD")
 	//viper.BindEnv("database.user", "DB_USER")
 	//viper.BindEnv("database.jwtSecret", "JWT_SECRET")
+	//viper.BindEnv("database.secret", "SECRET")
 
 	// Set default values
 	viper.SetDefault("app.port", 8080)
