@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/neodata-io/neodata-go/compare/v1.3.5...v1.3.6) (2024-10-18)
+
+
+### Bug Fixes
+
+* config casbin into casbin package ([99d0381](https://github.com/neodata-io/neodata-go/commit/99d0381afd1c045adefcc9594430c90a003ca21c))
+
 ## [1.3.5](https://github.com/neodata-io/neodata-go/compare/v1.3.4...v1.3.5) (2024-10-18)
 
 
