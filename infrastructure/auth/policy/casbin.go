@@ -11,7 +11,7 @@ import (
 
 // Embed the Casbin model file
 //
-//go:embed ../../config/casbin/rbac_model.conf
+//go:embed ../../../config/casbin/rbac_model.conf
 var rbacModel string
 
 // InitializeCasbin creates and returns a new Casbin enforcer with a PostgreSQL adapter.
