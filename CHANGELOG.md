@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/neodata-io/neodata-go/compare/v1.1.6...v1.2.0) (2024-10-18)
+
+
+### Bug Fixes
+
+* zap logger ([9b3171c](https://github.com/neodata-io/neodata-go/commit/9b3171c571a29db81510ed526e7f0272f5f260b9))
+
+
+### Features
+
+* added logger zap ([9417ede](https://github.com/neodata-io/neodata-go/commit/9417edeb1bbcbb39d6116c157b0f75802ad503e2))
+
 ## [1.1.6](https://github.com/neodata-io/neodata-go/compare/v1.1.5...v1.1.6) (2024-10-17)
 
 
