@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/neodata-io/neodata-go/compare/v1.2.0...v1.2.1) (2024-10-18)
+
+
+### Bug Fixes
+
+* logger renaming ([cc39335](https://github.com/neodata-io/neodata-go/commit/cc39335120886e86e96918f113bd11a9199c6904))
+
 # [1.2.0](https://github.com/neodata-io/neodata-go/compare/v1.1.6...v1.2.0) (2024-10-18)
 
 
