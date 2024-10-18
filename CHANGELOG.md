@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/neodata-io/neodata-go/compare/v1.2.1...v1.2.2) (2024-10-18)
+
+
+### Bug Fixes
+
+* config and logger ([7ac23ee](https://github.com/neodata-io/neodata-go/commit/7ac23ee51d02755ba7394b307c597acd2f6ae0fb))
+
 ## [1.2.1](https://github.com/neodata-io/neodata-go/compare/v1.2.0...v1.2.1) (2024-10-18)
 
 
