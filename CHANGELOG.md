@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/neodata-io/neodata-go/compare/v1.3.2...v1.3.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* file embed policy ([7d4ee10](https://github.com/neodata-io/neodata-go/commit/7d4ee102addde28a6bdcc53c85468ccb32f0b316))
+
 ## [1.3.2](https://github.com/neodata-io/neodata-go/compare/v1.3.1...v1.3.2) (2024-10-18)
 
 
