@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/neodata-io/neodata-go/compare/v1.1.5...v1.1.6) (2024-10-17)
+
+
+### Bug Fixes
+
+* host ([d16267f](https://github.com/neodata-io/neodata-go/commit/d16267f940d1e42d2242218cb94654cdaebcee64))
+
 ## [1.1.5](https://github.com/neodata-io/neodata-go/compare/v1.1.4...v1.1.5) (2024-10-17)
 
 
