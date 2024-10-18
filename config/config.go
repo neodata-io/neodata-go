@@ -9,13 +9,14 @@ import (
 
 type AppConfig struct {
 	App struct {
-		Name         string        `mapstructure:"name"`
-		Port         int           `mapstructure:"port"`
-		ReadTimeout  time.Duration `mapstructure:"read_timeout"`
-		WriteTimeout time.Duration `mapstructure:"write_timeout"`
-		Env          string        `mapstructure:"env"`
-		RateLimit    int           `mapstructure:"rate_limit"`
-		Secret       string        `mapstructure:"secret"`
+		Name           string        `mapstructure:"name"`
+		Port           int           `mapstructure:"port"`
+		ReadTimeout    time.Duration `mapstructure:"read_timeout"`
+		WriteTimeout   time.Duration `mapstructure:"write_timeout"`
+		Env            string        `mapstructure:"env"`
+		RateLimit      int           `mapstructure:"rate_limit"`
+		Secret         string        `mapstructure:"secret"`
+		UserServiceURL string        `mapstructure:"user_service_url"`
 	} `mapstructure:"app"`
 
 	Database struct {
