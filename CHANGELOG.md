@@ -1,3 +1,10 @@
+## [1.3.9](https://github.com/neodata-io/neodata-go/compare/v1.3.8...v1.3.9) (2024-10-18)
+
+
+### Bug Fixes
+
+* model from code ([4852374](https://github.com/neodata-io/neodata-go/commit/48523743d8c8b6ebdc2bc0e6f99b113bded63a93))
+
 ## [1.3.8](https://github.com/neodata-io/neodata-go/compare/v1.3.7...v1.3.8) (2024-10-18)
 
 
