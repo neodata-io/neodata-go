@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/neodata-io/neodata-go/compare/v1.3.6...v1.3.7) (2024-10-18)
+
+
+### Bug Fixes
+
+* rbac ([fbe76fc](https://github.com/neodata-io/neodata-go/commit/fbe76fcc10ec33f5a5298fea5d0b619345c45803))
+
 ## [1.3.6](https://github.com/neodata-io/neodata-go/compare/v1.3.5...v1.3.6) (2024-10-18)
 
 
