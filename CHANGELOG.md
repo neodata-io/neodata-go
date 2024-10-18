@@ -1,3 +1,10 @@
+## [1.3.13](https://github.com/neodata-io/neodata-go/compare/v1.3.12...v1.3.13) (2024-10-18)
+
+
+### Bug Fixes
+
+* claims uath middlware ([2b0b7be](https://github.com/neodata-io/neodata-go/commit/2b0b7be2a138f9980407f26f53206845041c587d))
+
 ## [1.3.12](https://github.com/neodata-io/neodata-go/compare/v1.3.11...v1.3.12) (2024-10-18)
 
 
