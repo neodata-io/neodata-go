@@ -26,6 +26,11 @@ type AppConfig struct {
 		SSLmode  string `mapstructure:"sslmode"`
 	} `mapstructure:"database"`
 
+	Auth struct {
+		JwtSecret   string `mapstructure:"jwtSecret"`
+		TokenExpiry int    `mapstructure:"tokenExpiry"`
+	}
+
 	Logger struct {
 		LogLevel string `mapstructure:"log_level"`
 	}
@@ -45,6 +50,10 @@ func LoadConfig(configPath string) (*AppConfig, error) {
 	}
 
 	viper.AutomaticEnv() // Automatically overrides config with environment variables
+
+	// Bind environment variables explicitly for sensitive fields
+	//viper.BindEnv("database.password", "DB_PASSWORD")
+	//viper.BindEnv("database.user", "DB_USER")
 
 	// Set default values
 	viper.SetDefault("app.port", 8080)
