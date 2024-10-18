@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/neodata-io/neodata-go/compare/v1.2.5...v1.3.0) (2024-10-18)
+
+
+### Features
+
+* postgres ([cb6bfd7](https://github.com/neodata-io/neodata-go/commit/cb6bfd75f20cd99d6f0832fc6f871d621aa3589e))
+
 ## [1.2.5](https://github.com/neodata-io/neodata-go/compare/v1.2.4...v1.2.5) (2024-10-18)
 
 
