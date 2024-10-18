@@ -2,11 +2,9 @@
 package config
 
 import (
-	"log"
 	"time"
 
 	"github.com/spf13/viper"
-	"go.uber.org/zap/zapcore"
 )
 
 type AppConfig struct {
@@ -29,7 +27,7 @@ type AppConfig struct {
 	} `mapstructure:"database"`
 
 	Logger struct {
-		LogLevel zapcore.Level `mapstructure:"log_level"`
+		LogLevel string `mapstructure:"log_level"`
 	}
 
 	Redis struct {
@@ -63,6 +61,5 @@ func LoadConfig(configPath string) (*AppConfig, error) {
 		return nil, err
 	}
 
-	log.Printf("Configuration loaded successfully: %s", config.App.Name)
 	return &config, nil
 }

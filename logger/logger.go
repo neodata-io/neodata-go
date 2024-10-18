@@ -1,6 +1,9 @@
 package logger
 
 import (
+	"fmt"
+	"strings"
+
 	"github.com/neodata-io/neodata-go/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -10,8 +13,8 @@ import (
 func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) {
 	var config zap.Config
 
-	// Choose between PRD and DEV configurations
-	if environment == "PRD" {
+	// Choose between prd and dev configurations
+	if environment == "prd" {
 		config = zap.NewProductionConfig()
 	} else {
 		config = zap.NewDevelopmentConfig()
@@ -37,13 +40,38 @@ func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) 
 
 // InitServiceLogger creates a base logger and attaches a service-specific field
 func InitServiceLogger(cfg *config.AppConfig) (*zap.Logger, error) {
-
+	logLevel, err := mapLogLevel(cfg.Logger.LogLevel)
+	if err != nil {
+		return nil, fmt.Errorf("failed to set log level: %w", err)
+	}
 	// Create the logger based on environment and log level
-	logger, err := NewLogger(cfg.Logger.LogLevel, cfg.App.Env)
+	logger, err := NewLogger(logLevel, cfg.App.Env)
 	if err != nil {
 		return nil, err
 	}
 
 	// Add the service name as a field for every log entry
 	return logger.With(zap.String("service", cfg.App.Name)), nil
+}
+
+// mapLogLevel maps a string log level to zapcore.Level
+func mapLogLevel(logLevel string) (zapcore.Level, error) {
+	switch strings.ToLower(logLevel) {
+	case "debug":
+		return zapcore.DebugLevel, nil
+	case "info":
+		return zapcore.InfoLevel, nil
+	case "warn":
+		return zapcore.WarnLevel, nil
+	case "error":
+		return zapcore.ErrorLevel, nil
+	case "dpanic":
+		return zapcore.DPanicLevel, nil
+	case "panic":
+		return zapcore.PanicLevel, nil
+	case "fatal":
+		return zapcore.FatalLevel, nil
+	default:
+		return zapcore.InfoLevel, fmt.Errorf("invalid log level: %s", logLevel)
+	}
 }
