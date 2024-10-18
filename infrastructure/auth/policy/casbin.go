@@ -5,14 +5,20 @@ import (
 	"fmt"
 
 	"github.com/casbin/casbin/v2"
+	"github.com/casbin/casbin/v2/model"
 	xormadapter "github.com/casbin/xorm-adapter/v3"
 	"github.com/neodata-io/neodata-go/config"
 )
 
-// Embed the Casbin model file
-//
-//go:embed rbac_model.conf
-var rbacModel string
+func newModel() model.Model {
+	m := model.NewModel()
+	m.AddDef("r", "r", "sub, obj, act")
+	m.AddDef("p", "p", "sub, obj, act, eft")
+	m.AddDef("e", "e", "e = some(where (p.eft == allow))")
+	m.AddDef("m", "m", "r.sub == p.sub && r.obj == p.obj && r.act == p.act")
+
+	return m
+}
 
 // InitializeCasbin creates and returns a new Casbin enforcer with a PostgreSQL adapter.
 func InitializeCasbin(cfg *config.AppConfig) (*casbin.Enforcer, error) {
@@ -36,7 +42,7 @@ func InitializeCasbin(cfg *config.AppConfig) (*casbin.Enforcer, error) {
 	}
 
 	// Load Casbin model and policy from configuration file
-	enforcer, err := casbin.NewEnforcer(rbacModel, adapter)
+	enforcer, err := casbin.NewEnforcer(newModel(), adapter)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create Casbin enforcer: %v", err)
 	}
