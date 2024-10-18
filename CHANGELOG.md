@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/neodata-io/neodata-go/compare/v1.3.3...v1.3.4) (2024-10-18)
+
+
+### Bug Fixes
+
+* embed the file model ([6cc38c9](https://github.com/neodata-io/neodata-go/commit/6cc38c917802320aa4616994b9627099a619d176))
+
 ## [1.3.3](https://github.com/neodata-io/neodata-go/compare/v1.3.2...v1.3.3) (2024-10-18)
 
 
