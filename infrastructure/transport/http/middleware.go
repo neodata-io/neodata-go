@@ -26,6 +26,7 @@ func LoggerMiddleware() fiber.Handler {
 		TimeFormat: "2006-01-02 15:04:05",
 		TimeZone:   "Local",
 	})
+
 }
 
 // RateLimiterMiddleware provides rate limiting based on request count per time unit.

@@ -57,6 +57,6 @@ func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	if err != nil {
 		log.Fatalf("Failed to validate PostgreSQL connection: %v", err)
 	}
-	fmt.Println("Connection validated: PostgreSQL is ready")
+
 	return dbPool, nil
 }

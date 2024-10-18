@@ -18,7 +18,7 @@ func SetupHTTPServer(cfg *config.AppConfig) *fiber.App {
 	})
 
 	// Middleware setup (commented out; add as needed)
-	// app.Use(LoggerMiddleware())                    // Log all incoming requests
+	app.Use(LoggerMiddleware()) // Log all incoming requests
 	// app.Use(RateLimiterMiddleware(100, time.Minute)) // Rate limiting for protected endpoints
 
 	return app
