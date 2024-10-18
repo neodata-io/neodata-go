@@ -1,3 +1,10 @@
+## [1.3.11](https://github.com/neodata-io/neodata-go/compare/v1.3.10...v1.3.11) (2024-10-18)
+
+
+### Bug Fixes
+
+* add jwtsecret and tokenexpiry ([36846b2](https://github.com/neodata-io/neodata-go/commit/36846b240a075098dd641519537983cebf4b3dc3))
+
 ## [1.3.10](https://github.com/neodata-io/neodata-go/compare/v1.3.9...v1.3.10) (2024-10-18)
 
 
