@@ -4,7 +4,6 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -46,9 +45,6 @@ func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	if err != nil {
 		return nil, fmt.Errorf("unable to connect to PostgreSQL: %v", err)
 	}
-
-	// Log successful connection to PostgreSQL
-	log.Println("Connected to PostgreSQL successfully")
 
 	// Set optional connection pool settings
 	dbPool.Config().MaxConns = 10                 // Maximum number of connections
