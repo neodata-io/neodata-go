@@ -1,6 +1,7 @@
 package log
 
 import (
+	"github.com/neodata-io/neodata-go/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -9,8 +10,8 @@ import (
 func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) {
 	var config zap.Config
 
-	// Choose between production and development configurations
-	if environment == "production" {
+	// Choose between PRD and DEV configurations
+	if environment == "PRD" {
 		config = zap.NewProductionConfig()
 	} else {
 		config = zap.NewDevelopmentConfig()
@@ -35,13 +36,14 @@ func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) 
 }
 
 // InitServiceLogger creates a base logger and attaches a service-specific field
-func InitServiceLogger(serviceName string, logLevel zapcore.Level, environment string) (*zap.Logger, error) {
+func InitServiceLogger(cfg *config.AppConfig) (*zap.Logger, error) {
+
 	// Create the logger based on environment and log level
-	logger, err := NewLogger(logLevel, environment)
+	logger, err := NewLogger(cfg.Logger.LogLevel, cfg.App.Env)
 	if err != nil {
 		return nil, err
 	}
 
 	// Add the service name as a field for every log entry
-	return logger.With(zap.String("service", serviceName)), nil
+	return logger.With(zap.String("service", cfg.App.Name)), nil
 }

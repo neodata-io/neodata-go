@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
+	"go.uber.org/zap/zapcore"
 )
 
 type AppConfig struct {
@@ -14,8 +15,10 @@ type AppConfig struct {
 		Port         int           `mapstructure:"port"`
 		ReadTimeout  time.Duration `mapstructure:"read_timeout"`
 		WriteTimeout time.Duration `mapstructure:"write_timeout"`
+		Env          string        `mapstructure:"env"`
 		RateLimit    int           `mapstructure:"rate_limit"`
 	} `mapstructure:"app"`
+
 	Database struct {
 		Host     string `mapstructure:"host"`
 		Port     int    `mapstructure:"port"`
@@ -24,13 +27,14 @@ type AppConfig struct {
 		Password string `mapstructure:"password"`
 		SSLmode  string `mapstructure:"sslmode"`
 	} `mapstructure:"database"`
+
+	Logger struct {
+		LogLevel zapcore.Level `mapstructure:"log_level"`
+	}
+
 	Redis struct {
 		Address string `mapstructure:"address"`
 	} `mapstructure:"redis"`
-	AppName      string `mapstructure:"app_name"`
-	AppPort      string `mapstructure:"app_port"`
-	DatabaseDSN  string `mapstructure:"database_dsn"`
-	RedisAddress string `mapstructure:"redis_address"`
 }
 
 func LoadConfig(configPath string) (*AppConfig, error) {
