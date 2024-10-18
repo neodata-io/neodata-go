@@ -1,3 +1,10 @@
+## [1.3.12](https://github.com/neodata-io/neodata-go/compare/v1.3.11...v1.3.12) (2024-10-18)
+
+
+### Bug Fixes
+
+* config ([7871fc7](https://github.com/neodata-io/neodata-go/commit/7871fc71c4294db219c988a3d4d0a5bef53c86f7))
+
 ## [1.3.11](https://github.com/neodata-io/neodata-go/compare/v1.3.10...v1.3.11) (2024-10-18)
 
 
