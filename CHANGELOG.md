@@ -1,3 +1,10 @@
+## [1.3.14](https://github.com/neodata-io/neodata-go/compare/v1.3.13...v1.3.14) (2024-10-18)
+
+
+### Bug Fixes
+
+* password ([a067cb0](https://github.com/neodata-io/neodata-go/commit/a067cb0aecad3ff381c2706815319426255dc33f))
+
 ## [1.3.13](https://github.com/neodata-io/neodata-go/compare/v1.3.12...v1.3.13) (2024-10-18)
 
 
