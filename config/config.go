@@ -54,6 +54,7 @@ func LoadConfig(configPath string) (*AppConfig, error) {
 	// Bind environment variables explicitly for sensitive fields
 	//viper.BindEnv("database.password", "DB_PASSWORD")
 	//viper.BindEnv("database.user", "DB_USER")
+	//viper.BindEnv("database.jwtSecret", "JWT_SECRET")
 
 	// Set default values
 	viper.SetDefault("app.port", 8080)
