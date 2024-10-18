@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/neodata-io/neodata-go/compare/v1.2.4...v1.2.5) (2024-10-18)
+
+
+### Bug Fixes
+
+* debug postgres ([4490226](https://github.com/neodata-io/neodata-go/commit/4490226a4fc27467af054138f1f2c4e2a83a7e2e))
+
 ## [1.2.4](https://github.com/neodata-io/neodata-go/compare/v1.2.3...v1.2.4) (2024-10-18)
 
 
