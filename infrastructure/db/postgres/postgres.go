@@ -4,6 +4,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -52,5 +53,11 @@ func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	dbPool.Config().MaxConnLifetime = time.Hour   // Max lifetime of a connection
 	dbPool.Config().MaxConnIdleTime = time.Minute // Max idle time of a connection
 
+	var result int
+	err = dbPool.QueryRow(ctx, "SELECT 1").Scan(&result)
+	if err != nil {
+		log.Fatalf("Failed to validate PostgreSQL connection: %v", err)
+	}
+	fmt.Println("Connection validated: PostgreSQL is ready")
 	return dbPool, nil
 }
