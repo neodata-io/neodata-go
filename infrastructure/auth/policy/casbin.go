@@ -30,7 +30,7 @@ func InitializeCasbin(cfg *config.AppConfig) (*casbin.Enforcer, error) {
 	}
 
 	// Load Casbin model and policy from configuration file
-	enforcer, err := casbin.NewEnforcer("/app/config/casbin/rbac_model.conf", adapter)
+	enforcer, err := casbin.NewEnforcer("/neodata-go/config/casbin/rbac_model.conf", adapter)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create Casbin enforcer: %v", err)
 	}
