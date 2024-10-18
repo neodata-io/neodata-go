@@ -1,3 +1,10 @@
+## [1.3.15](https://github.com/neodata-io/neodata-go/compare/v1.3.14...v1.3.15) (2024-10-18)
+
+
+### Bug Fixes
+
+* user base url ([66cddb8](https://github.com/neodata-io/neodata-go/commit/66cddb85d2bc9a9feb55df2dde0a588ff7940e36))
+
 ## [1.3.14](https://github.com/neodata-io/neodata-go/compare/v1.3.13...v1.3.14) (2024-10-18)
 
 
