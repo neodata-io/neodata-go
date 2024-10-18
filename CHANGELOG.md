@@ -1,3 +1,10 @@
+## [1.3.8](https://github.com/neodata-io/neodata-go/compare/v1.3.7...v1.3.8) (2024-10-18)
+
+
+### Bug Fixes
+
+* policy ([1694659](https://github.com/neodata-io/neodata-go/commit/169465931317c07b7a3e24dba6c70f0f49aca1dd))
+
 ## [1.3.7](https://github.com/neodata-io/neodata-go/compare/v1.3.6...v1.3.7) (2024-10-18)
 
 
