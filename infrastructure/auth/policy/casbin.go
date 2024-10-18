@@ -20,7 +20,7 @@ func InitializeCasbin(cfg *config.AppConfig) (*casbin.Enforcer, error) {
 		cfg.Database.Port,
 	)
 
-	// Debugging: Log the database URL (without the password)
+	// Debugging: Log the database URL
 	fmt.Printf("Connecting to PostgreSQL at %s:%d (user: %s, dbname: %s)\n", cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Name)
 
 	// Connect to PostgreSQL as the adapter for Casbin
