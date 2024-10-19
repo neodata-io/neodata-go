@@ -24,18 +24,10 @@ func NewPolicyManager(cfg *config.AppConfig) (*PolicyManager, error) {
 
 // AddPolicyForUser adds a specific policy for a user with an effect (e.g., allow or deny)
 func (pm *PolicyManager) AddPolicyForUser(user string, resource string, action string, effect string) error {
-	if effect == "allow" {
-		_, err := pm.e.AddPolicy(user, resource, action)
-		if err != nil {
-			return fmt.Errorf("error adding policy: %v", err)
-		}
-	} else if effect == "deny" {
-		// Handle deny case if required (in Casbin, the default behavior can be modeled with additional policies)
-		// Alternatively, this can be managed by the "eft" in the model configuration if required
-		_, err := pm.e.AddPolicy(user, resource, action, "deny")
-		if err != nil {
-			return fmt.Errorf("error adding deny policy: %v", err)
-		}
+	// Add policy with the subject (user), object (resource), action, and effect (allow or deny)
+	_, err := pm.e.AddPolicy(user, resource, action, effect)
+	if err != nil {
+		return fmt.Errorf("error adding policy: %v", err)
 	}
 	return nil
 }
@@ -83,4 +75,34 @@ func (pm *PolicyManager) CanUserLogin(userID string) (bool, error) {
 	}
 
 	return true, nil
+}
+
+// RemovePolicyForUser removes a specific policy for a user (subject, object, action, effect)
+func (pm *PolicyManager) RemovePolicyForUser(user string, resource string, action string, effect string) error {
+	// Remove a specific policy that matches all four fields
+	removed, err := pm.e.RemovePolicy(user, resource, action, effect)
+	if err != nil {
+		return fmt.Errorf("error removing policy: %v", err)
+	}
+
+	if !removed {
+		return fmt.Errorf("policy not found for user: %s, resource: %s, action: %s", user, resource, action)
+	}
+
+	return nil
+}
+
+// RemoveAllPoliciesForUser removes all policies for a specific user
+func (pm *PolicyManager) RemoveAllPoliciesForUser(user string) error {
+	// Remove all policies where the subject (user) matches
+	removed, err := pm.e.RemoveFilteredPolicy(0, user)
+	if err != nil {
+		return fmt.Errorf("error removing policies for user: %v", err)
+	}
+
+	if !removed {
+		return fmt.Errorf("no policies found for user: %s", user)
+	}
+
+	return nil
 }
