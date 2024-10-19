@@ -1,3 +1,10 @@
+## [1.3.16](https://github.com/neodata-io/neodata-go/compare/v1.3.15...v1.3.16) (2024-10-19)
+
+
+### Bug Fixes
+
+* can user login ([28d9c71](https://github.com/neodata-io/neodata-go/commit/28d9c71335cc73cf8cbe8d15490d4e35843f9928))
+
 ## [1.3.15](https://github.com/neodata-io/neodata-go/compare/v1.3.14...v1.3.15) (2024-10-18)
 
 
