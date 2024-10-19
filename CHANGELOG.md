@@ -1,3 +1,10 @@
+## [1.3.18](https://github.com/neodata-io/neodata-go/compare/v1.3.17...v1.3.18) (2024-10-19)
+
+
+### Bug Fixes
+
+* added some extra methods ([8b7cd11](https://github.com/neodata-io/neodata-go/commit/8b7cd11af0b13e5cba0ac5277a976606ce852a5a))
+
 ## [1.3.17](https://github.com/neodata-io/neodata-go/compare/v1.3.16...v1.3.17) (2024-10-19)
 
 
