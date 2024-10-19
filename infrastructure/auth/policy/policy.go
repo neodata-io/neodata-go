@@ -62,6 +62,15 @@ func (pm *PolicyManager) GetFilteredPolicy(index int, userID string) ([][]string
 	return policies, err
 }
 
+// HasPolicyForUser checks if a specific policy exists for a user
+func (pm *PolicyManager) HasPolicyForUser(userID string, resource string, action string, effect string) (bool, error) {
+	exists, err := pm.e.HasPolicy(userID, resource, action, effect)
+	if err != nil {
+		return false, fmt.Errorf("error checking policy permission for user %s: %v", userID, err)
+	}
+	return exists, nil
+}
+
 // CanUserLogin checks if the user is allowed to execute the "login" action.
 func (pm *PolicyManager) CanUserLogin(userID string) (bool, error) {
 	// Use Casbin's Enforce method to check if the user can execute the login action.
@@ -105,4 +114,36 @@ func (pm *PolicyManager) RemoveAllPoliciesForUser(user string) error {
 	}
 
 	return nil
+}
+
+// AddMultiplePolicies adds multiple policies for multiple users in one call
+func (pm *PolicyManager) AddMultiplePolicies(policies [][]string) error {
+	ok, err := pm.e.AddPolicies(policies)
+	if err != nil || !ok {
+		return fmt.Errorf("error adding multiple policies: %v", err)
+	}
+	return nil
+}
+
+// RemoveMultiplePolicies removes multiple policies in one call
+func (pm *PolicyManager) RemoveMultiplePolicies(policies [][]string) error {
+	ok, err := pm.e.RemovePolicies(policies)
+	if err != nil || !ok {
+		return fmt.Errorf("error removing multiple policies: %v", err)
+	}
+	return nil
+}
+
+// CanUserPerformAction checks if a user is allowed to perform a specific action on a resource
+func (pm *PolicyManager) CanUserPerformAction(user string, resource string, action string) (bool, error) {
+	allowed, err := pm.e.Enforce(user, resource, action)
+	if err != nil {
+		return false, fmt.Errorf("error enforcing policy: %v", err)
+	}
+	return allowed, nil
+}
+
+// ResetPolicies clears all policies in the system (use with caution)
+func (pm *PolicyManager) ResetPolicies() {
+	pm.e.ClearPolicy()
 }
