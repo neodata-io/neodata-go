@@ -69,3 +69,18 @@ func (pm *PolicyManager) GetFilteredPolicy(index int, userID string) ([][]string
 
 	return policies, err
 }
+
+// CanUserLogin checks if the user is allowed to execute the "login" action.
+func (pm *PolicyManager) CanUserLogin(userID string) (bool, error) {
+	// Use Casbin's Enforce method to check if the user can execute the login action.
+	allowed, err := pm.e.Enforce(userID, "login", "execute")
+	if err != nil {
+		return false, fmt.Errorf("error checking login permission for user %s: %v", userID, err)
+	}
+
+	if !allowed {
+		return false, fmt.Errorf("user %s is not allowed to log in", userID)
+	}
+
+	return true, nil
+}
