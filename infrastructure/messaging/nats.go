@@ -44,8 +44,6 @@ func (client *NATSClient) CreateStreams(cfg *config.AppConfig) error {
 		storage := nats.FileStorage
 		if streamConfig.StorageType == "memory" {
 			storage = nats.MemoryStorage
-		} else {
-			storage = nats.FileStorage // Default to disk-based storage
 		}
 
 		// Define the stream configuration
