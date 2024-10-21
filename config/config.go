@@ -36,7 +36,8 @@ type AppConfig struct {
 	Messaging struct {
 		PubsubBackend string `mapstructure:"pubsub_backend"`
 		PubsubBroker  string `mapstructure:"pubsub_broker"`
-		ConsumerGroup string `mapstructure:"consumer_group"`
+		// Array of stream configurations for multiple streams
+		Streams []NATSStreamConfig `mapstructure:"streams"`
 	}
 
 	Logger struct {
@@ -46,6 +47,15 @@ type AppConfig struct {
 	Redis struct {
 		Address string `mapstructure:"address"`
 	} `mapstructure:"redis"`
+}
+
+// NATSStreamConfig defines the configuration for a single JetStream stream
+type NATSStreamConfig struct {
+	StreamName  string        `mapstructure:"stream_name"`
+	Subjects    []string      `mapstructure:"subjects"`
+	MaxAge      time.Duration `mapstructure:"max_age"`
+	StorageType string        `mapstructure:"storage_type"` // "file" or "memory"
+	Replicas    int           `mapstructure:"replicas"`     // Number of replicas
 }
 
 func LoadConfig(configPath string) (*AppConfig, error) {
