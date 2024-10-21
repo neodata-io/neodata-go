@@ -1,3 +1,10 @@
+## [1.3.19](https://github.com/neodata-io/neodata-go/compare/v1.3.18...v1.3.19) (2024-10-21)
+
+
+### Bug Fixes
+
+* start nats abd server ([8c08d2e](https://github.com/neodata-io/neodata-go/commit/8c08d2e685fba7da216749879741e97617e2318a))
+
 ## [1.3.18](https://github.com/neodata-io/neodata-go/compare/v1.3.17...v1.3.18) (2024-10-19)
 
 
