@@ -1,3 +1,10 @@
+## [1.3.20](https://github.com/neodata-io/neodata-go/compare/v1.3.19...v1.3.20) (2024-10-21)
+
+
+### Bug Fixes
+
+* nats v1 ([0eb3dfd](https://github.com/neodata-io/neodata-go/commit/0eb3dfda67c6060649eda6644c637778026b2a4c))
+
 ## [1.3.19](https://github.com/neodata-io/neodata-go/compare/v1.3.18...v1.3.19) (2024-10-21)
 
 
