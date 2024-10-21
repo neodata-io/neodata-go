@@ -2,6 +2,7 @@
 package http
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -17,7 +18,7 @@ func SetupHTTPServer(cfg *config.AppConfig) *fiber.App {
 		AppName:      cfg.App.Name,
 	})
 
-	// Middleware setup (commented out; add as needed)
+	// Middleware setup
 	app.Use(LoggerMiddleware()) // Log all incoming requests
 	// app.Use(RateLimiterMiddleware(100, time.Minute)) // Rate limiting for protected endpoints
 
@@ -25,9 +26,13 @@ func SetupHTTPServer(cfg *config.AppConfig) *fiber.App {
 }
 
 // StartServer starts the HTTP server on the specified port.
-func StartServer(app *fiber.App, port string) {
-	log.Printf("Starting server on port %s...", port)
-	if err := app.Listen(":" + port); err != nil {
-		log.Fatalf("Error starting server: %v", err)
+func StartServer(app *fiber.App, cfg *config.AppConfig) (*fiber.App, error) {
+	if err := app.Listen(fmt.Sprintf(":%d", cfg.App.Port), fiber.ListenConfig{
+		DisableStartupMessage: true,
+	}); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+		return nil, err
 	}
+
+	return app, nil
 }

@@ -33,6 +33,12 @@ type AppConfig struct {
 		TokenExpiry time.Duration `mapstructure:"tokenExpiry"`
 	}
 
+	Messaging struct {
+		PubsubBackend string `mapstructure:"pubsub_backend"`
+		PubsubBroker  string `mapstructure:"pubsub_broker"`
+		ConsumerGroup string `mapstructure:"consumer_group"`
+	}
+
 	Logger struct {
 		LogLevel string `mapstructure:"log_level"`
 	}
