@@ -11,7 +11,7 @@ import (
 )
 
 // SetupHTTPServer initializes a new HTTP server with the provided configuration and middleware.
-func SetupHTTPServer(cfg *config.AppConfig) *fiber.App {
+func NewHTTPServer(cfg *config.AppConfig) *fiber.App {
 	app := fiber.New(fiber.Config{
 		ReadTimeout:  cfg.App.ReadTimeout * time.Second,
 		WriteTimeout: cfg.App.WriteTimeout * time.Second,

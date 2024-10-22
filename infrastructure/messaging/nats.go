@@ -20,8 +20,8 @@ type NATSClient struct {
 }
 
 // NewNATSClient creates a new NATS JetStream connection
-func NewNATSClient(cfg *config.AppConfig) (*NATSClient, error) {
-	conn, err := nats.Connect(cfg.Messaging.PubsubBroker)
+func NewNATSClient(natsURL string) (*NATSClient, error) {
+	conn, err := nats.Connect(natsURL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to NATS: %w", err)
 	}
@@ -32,6 +32,12 @@ func NewNATSClient(cfg *config.AppConfig) (*NATSClient, error) {
 	}
 
 	return &NATSClient{Conn: conn, JetStream: js}, nil
+}
+
+func (n *NATSClient) Close() {
+	if n.Conn != nil {
+		n.Conn.Close()
+	}
 }
 
 // CreateStreams sets up multiple JetStream streams based on the configuration

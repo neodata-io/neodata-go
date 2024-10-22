@@ -20,6 +20,7 @@ type AppConfig struct {
 	} `mapstructure:"app"`
 
 	Database struct {
+		Type     string `mapstructure:"type"`
 		Host     string `mapstructure:"host"`
 		Port     int    `mapstructure:"port"`
 		Name     string `mapstructure:"name"`
@@ -47,6 +48,16 @@ type AppConfig struct {
 	Redis struct {
 		Address string `mapstructure:"address"`
 	} `mapstructure:"redis"`
+
+	PolicyManager *PolicyManagerConfig `yaml:"policy_manager,omitempty"` // PolicyManager is optional
+}
+
+// PolicyManagerConfig defines the configuration for the policy manager (optional)
+type PolicyManagerConfig struct {
+	// Add any policy manager-specific configuration here
+	// For example, maybe you need to configure an external service
+	// Host      string `yaml:"host"`
+	// Port      int    `yaml:"port"`
 }
 
 // NATSStreamConfig defines the configuration for a single JetStream stream

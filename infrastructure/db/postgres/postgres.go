@@ -4,7 +4,6 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -12,7 +11,7 @@ import (
 )
 
 // NewPool initializes a PostgreSQL connection pool with given parameters.
-func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
+func NewPool(ctx context.Context, cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	// Validate mandatory environment variables
 	if cfg.Database.User == "" {
 		return nil, fmt.Errorf("missing database user in configuration")
@@ -36,12 +35,13 @@ func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 		cfg.Database.Name,
 	)
 
-	// Create a context with timeout for connecting to the database
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	config, err := pgxpool.ParseConfig(dsn)
+	if err != nil {
+		return nil, err
+	}
 
 	// Connect to the PostgreSQL database using pgxpool
-	dbPool, err := pgxpool.New(ctx, dsn)
+	dbPool, err := pgxpool.NewWithConfig(ctx, config)
 	if err != nil {
 		return nil, fmt.Errorf("unable to connect to PostgreSQL: %v", err)
 	}
@@ -51,12 +51,6 @@ func NewPool(cfg *config.AppConfig) (*pgxpool.Pool, error) {
 	dbPool.Config().MinConns = 2                  // Minimum number of idle connections
 	dbPool.Config().MaxConnLifetime = time.Hour   // Max lifetime of a connection
 	dbPool.Config().MaxConnIdleTime = time.Minute // Max idle time of a connection
-
-	var result int
-	err = dbPool.QueryRow(ctx, "SELECT 1").Scan(&result)
-	if err != nil {
-		log.Fatalf("Failed to validate PostgreSQL connection: %v", err)
-	}
 
 	return dbPool, nil
 }
