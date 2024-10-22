@@ -15,6 +15,11 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+type Ability struct {
+	Action  string `json:"action"`
+	Subject string `json:"subject"`
+}
+
 /* Example
 {
 	"user_id": "123456",

@@ -23,14 +23,12 @@ type NATSClient struct {
 func NewNATSClient(cfg *config.AppConfig) (*NATSClient, error) {
 	conn, err := nats.Connect(cfg.Messaging.PubsubBroker)
 	if err != nil {
-		log.Fatalf("Failed to connect to NATS: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to connect to NATS: %w", err)
 	}
 
 	js, err := conn.JetStream()
 	if err != nil {
-		log.Fatalf("Failed to get JetStream context: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to get JetStream context: %w", err)
 	}
 
 	return &NATSClient{Conn: conn, JetStream: js}, nil
