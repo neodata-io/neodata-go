@@ -9,7 +9,7 @@ import (
 )
 
 // Context encapsulates shared dependencies for the microservice
-type Context struct {
+type NeoCtx struct {
 	HTTPServer    *fiber.App
 	PolicyManager *policy.PolicyManager
 	NATS          *messaging.NATSClient
@@ -20,8 +20,14 @@ type Context struct {
 
 // NewContext initializes a new Neo Context
 // Components can be nil if not used by the microservice.
-func NewContext(httpServer *fiber.App, policyManager *policy.PolicyManager, natsClient *messaging.NATSClient, logger *zap.Logger, db *pgxpool.Pool) *Context {
-	return &Context{
+func NewContext(
+	httpServer *fiber.App,
+	policyManager *policy.PolicyManager,
+	natsClient *messaging.NATSClient,
+	logger *zap.Logger,
+	db *pgxpool.Pool,
+) *NeoCtx {
+	return &NeoCtx{
 		Logger:        logger,
 		DB:            db,
 		NATS:          natsClient,

@@ -1,4 +1,4 @@
-package app
+package neodata
 
 import (
 	"context"
@@ -8,22 +8,22 @@ import (
 	"github.com/neodata-io/neodata-go/config"
 	"github.com/neodata-io/neodata-go/infrastructure/auth/policy"
 	"github.com/neodata-io/neodata-go/infrastructure/messaging"
-	"github.com/neodata-io/neodata-go/neodata"
+
 	"go.uber.org/zap"
 )
 
 // App struct will hold the context and allow easier initialization
 type App struct {
-	Context *neodata.Context
+	Context *NeoCtx
 }
 
 // Option defines a function that modifies the Neo Context
-type Option func(*neodata.Context)
+type Option func(*NeoCtx)
 
 // New initializes the application with options for services
 func New(ctx context.Context, cfg *config.AppConfig, opts ...Option) (*App, error) {
 	// Create a base context with default components
-	neoCtx := neodata.NewContext(nil, nil, nil, nil, nil)
+	neoCtx := NewContext(nil, nil, nil, nil, nil)
 
 	// Apply options (e.g., Logger, DB, NATS, etc.)
 	for _, opt := range opts {
@@ -37,35 +37,35 @@ func New(ctx context.Context, cfg *config.AppConfig, opts ...Option) (*App, erro
 
 // WithLogger allows the user to inject a logger
 func WithLogger(logger *zap.Logger) Option {
-	return func(ctx *neodata.Context) {
+	return func(ctx *NeoCtx) {
 		ctx.Logger = logger
 	}
 }
 
 // WithPostgres allows the user to inject a PostgreSQL pool
 func WithPostgres(dbPool *pgxpool.Pool) Option {
-	return func(ctx *neodata.Context) {
+	return func(ctx *NeoCtx) {
 		ctx.DB = dbPool
 	}
 }
 
 // WithNATS allows the user to inject a NATS client
 func WithNATS(natsClient *messaging.NATSClient) Option {
-	return func(ctx *neodata.Context) {
+	return func(ctx *NeoCtx) {
 		ctx.NATS = natsClient
 	}
 }
 
 // WithPolicyManager allows the user to inject a Policy Manager
 func WithPolicyManager(policyManager *policy.PolicyManager) Option {
-	return func(ctx *neodata.Context) {
+	return func(ctx *NeoCtx) {
 		ctx.PolicyManager = policyManager
 	}
 }
 
 // WithHTTPServer allows the user to inject an HTTP server
 func WithHTTPServer(httpServer *fiber.App) Option {
-	return func(ctx *neodata.Context) {
+	return func(ctx *NeoCtx) {
 		ctx.HTTPServer = httpServer
 	}
 }
