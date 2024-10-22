@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/neodata-io/neodata-go/compare/v1.3.22...v1.4.0) (2024-10-22)
+
+
+### Features
+
+* neodata options package ([3979a14](https://github.com/neodata-io/neodata-go/commit/3979a146ef9c65ed5bb1963fbb93e4d014ddff27))
+
 ## [1.3.22](https://github.com/neodata-io/neodata-go/compare/v1.3.21...v1.3.22) (2024-10-22)
 
 
