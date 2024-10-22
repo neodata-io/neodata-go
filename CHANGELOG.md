@@ -1,3 +1,10 @@
+## [1.3.22](https://github.com/neodata-io/neodata-go/compare/v1.3.21...v1.3.22) (2024-10-22)
+
+
+### Bug Fixes
+
+* logger ([3e04527](https://github.com/neodata-io/neodata-go/commit/3e045273ec5b07b7572722ee818be47c55e0ecbe))
+
 ## [1.3.21](https://github.com/neodata-io/neodata-go/compare/v1.3.20...v1.3.21) (2024-10-21)
 
 
