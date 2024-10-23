@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/neodata-io/neodata-go/compare/v1.4.0...v1.4.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* neo ctx ([0d1ef8c](https://github.com/neodata-io/neodata-go/commit/0d1ef8cbccf5a66b9ce25097b41c4a7843b2d391))
+
 # [1.4.0](https://github.com/neodata-io/neodata-go/compare/v1.3.22...v1.4.0) (2024-10-22)
 
 
