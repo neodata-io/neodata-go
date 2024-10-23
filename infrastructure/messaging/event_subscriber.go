@@ -1,12 +1,6 @@
 package messaging
 
-import (
-	"log"
-
-	"github.com/nats-io/nats.go"
-)
-
-// EventHandler defines the interface for handling events
+/* // EventHandler defines the interface for handling events
 type EventHandler func(msg *nats.Msg) error
 
 // EventSubscriber handles subscribing to events from NATS JetStream
@@ -33,3 +27,4 @@ func (s *EventSubscriber) Subscribe(subject, durableName string, handler EventHa
 	log.Printf("Subscribed to subject: %s", subject)
 	return nil
 }
+*/

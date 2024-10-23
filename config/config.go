@@ -7,6 +7,11 @@ import (
 	"github.com/spf13/viper"
 )
 
+// ConfigManager defines an interface for fetching configuration values
+type ConfigManager interface {
+	GetAppConfig() *AppConfig
+}
+
 type AppConfig struct {
 	App struct {
 		Name           string        `mapstructure:"name"`

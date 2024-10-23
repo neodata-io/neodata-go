@@ -3,6 +3,7 @@ package neodata
 import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/neodata-io/neodata-go/config"
 	"github.com/neodata-io/neodata-go/infrastructure/auth/policy"
 	"github.com/neodata-io/neodata-go/infrastructure/messaging"
 	"go.uber.org/zap"
@@ -12,10 +13,11 @@ import (
 type NeoCtx struct {
 	HTTPServer    *fiber.App
 	PolicyManager *policy.PolicyManager
-	NATS          *messaging.NATSClient
+	Messaging     messaging.Messaging
 	Logger        *zap.Logger
 	DB            *pgxpool.Pool
-	Services      *ServiceRegistry // Add a dynamic service registry
+	Config        config.ConfigManager // Store the interface, not a pointer to the interface
+	Services      *ServiceRegistry     // Add a dynamic service registry
 }
 
 // NewContext initializes a new Neo Context
@@ -23,16 +25,22 @@ type NeoCtx struct {
 func NewContext(
 	httpServer *fiber.App,
 	policyManager *policy.PolicyManager,
-	natsClient *messaging.NATSClient,
+	messaging messaging.Messaging,
 	logger *zap.Logger,
+	configManager config.ConfigManager,
 	db *pgxpool.Pool,
 ) *NeoCtx {
 	return &NeoCtx{
 		Logger:        logger,
 		DB:            db,
-		NATS:          natsClient,
+		Messaging:     messaging,
 		HTTPServer:    httpServer,
 		PolicyManager: policyManager,
+		Config:        configManager,
 		Services:      &ServiceRegistry{}, // Initialize the service registry
 	}
+}
+
+func (ctx *NeoCtx) GetPublisher() messaging.Messaging {
+	return ctx.Messaging
 }

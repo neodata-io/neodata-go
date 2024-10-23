@@ -2,6 +2,7 @@ package neodata
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -23,7 +24,7 @@ type Option func(*NeoCtx)
 // New initializes the application with options for services
 func New(ctx context.Context, cfg *config.AppConfig, opts ...Option) (*App, error) {
 	// Create a base context with default components
-	neoCtx := NewContext(nil, nil, nil, nil, nil)
+	neoCtx := NewContext(nil, nil, nil, nil, nil, nil)
 
 	// Apply options (e.g., Logger, DB, NATS, etc.)
 	for _, opt := range opts {
@@ -50,9 +51,22 @@ func WithPostgres(dbPool *pgxpool.Pool) Option {
 }
 
 // WithNATS allows the user to inject a NATS client
-func WithNATS(natsClient *messaging.NATSClient) Option {
+func WithNATS() Option {
 	return func(ctx *NeoCtx) {
-		ctx.NATS = natsClient
+		// Access AppConfig via GetAppConfig method from ConfigManager
+		appConfig := ctx.Config.GetAppConfig()
+		// Check if the NATS client is already set; if not, create a new one
+		if ctx.Messaging == nil {
+			natsClient, err := messaging.NewNATSClient(context.Background(), appConfig.Messaging.PubsubBroker)
+			if err != nil {
+				fmt.Printf("Error creating NATS client: %v\n", err)
+				return
+			}
+			publisher := messaging.NewPublisher(natsClient, 0, 0)
+
+			// Assign the publisher to ctx.Messaging
+			ctx.Messaging = publisher
+		}
 	}
 }
 
@@ -75,9 +89,7 @@ func (a *App) Shutdown(ctx context.Context) error {
 	if a.Context.DB != nil {
 		a.Context.DB.Close()
 	}
-	if a.Context.NATS != nil {
-		a.Context.NATS.Close()
-	}
+
 	if a.Context.HTTPServer != nil {
 		if err := a.Context.HTTPServer.ShutdownWithContext(ctx); err != nil {
 			return err
