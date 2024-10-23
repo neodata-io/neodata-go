@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/neodata-io/neodata-go/compare/v1.4.2...v1.4.3) (2024-10-23)
+
+
+### Bug Fixes
+
+* load config by default ([4039b33](https://github.com/neodata-io/neodata-go/commit/4039b3381be6f0ae402c2f1540ab0d103154133c))
+
 ## [1.4.2](https://github.com/neodata-io/neodata-go/compare/v1.4.1...v1.4.2) (2024-10-23)
 
 
