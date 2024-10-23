@@ -22,9 +22,15 @@ type App struct {
 type Option func(*NeoCtx)
 
 // New initializes the application with options for services
-func New(ctx context.Context, cfg *config.AppConfig, opts ...Option) (*App, error) {
+func New(ctx context.Context, configPath string, opts ...Option) (*App, error) {
+	// Step 1: Load Configuration
+	cfgManager, err := config.NewConfigManager(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("could not load configuration: %v", err)
+	}
+
 	// Create a base context with default components
-	neoCtx := NewContext(nil, nil, nil, nil, nil, nil)
+	neoCtx := NewContext(nil, nil, nil, nil, cfgManager, nil)
 
 	// Apply options (e.g., Logger, DB, NATS, etc.)
 	for _, opt := range opts {
