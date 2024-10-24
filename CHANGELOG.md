@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/neodata-io/neodata-go/compare/v1.4.3...v1.4.4) (2024-10-24)
+
+
+### Bug Fixes
+
+* context ([7c2fbd4](https://github.com/neodata-io/neodata-go/commit/7c2fbd43c0a5f8e2aa5db7db80f86ccbd5f35579))
+
 ## [1.4.3](https://github.com/neodata-io/neodata-go/compare/v1.4.2...v1.4.3) (2024-10-23)
 
 
