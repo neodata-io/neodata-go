@@ -36,7 +36,13 @@ func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) 
 	}
 
 	// Build and return the logger
-	return config.Build()
+	l, err := config.Build()
+	if err != nil {
+		panic(err)
+	}
+	defer l.Sync()
+
+	return l, nil
 }
 
 // InitServiceLogger creates a base logger and attaches a service-specific field
