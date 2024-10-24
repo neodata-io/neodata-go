@@ -115,6 +115,9 @@ func WithHTTPServer(httpServer ...*fiber.App) Option {
 	return func(ctx *NeoCtx) error {
 		appConfig := ctx.Config.GetAppConfig()
 		fiberApp := http.NewHTTPServer(appConfig)
+		if _, err := http.StartServer(fiberApp, appConfig); err != nil {
+			ctx.Logger.Fatal("Failed to start HTTP server", zap.Error(err))
+		}
 		ctx.HTTPServer = fiberApp
 		return nil
 	}
