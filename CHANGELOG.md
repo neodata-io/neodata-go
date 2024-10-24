@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/neodata-io/neodata-go/compare/v1.4.5...v1.4.6) (2024-10-24)
+
+
+### Bug Fixes
+
+* error returning ([83fb94b](https://github.com/neodata-io/neodata-go/commit/83fb94b57c46b58fd3175686af5cc09c2e57d9ac))
+
 ## [1.4.5](https://github.com/neodata-io/neodata-go/compare/v1.4.4...v1.4.5) (2024-10-24)
 
 
