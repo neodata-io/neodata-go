@@ -133,3 +133,47 @@ func (a *App) Shutdown(ctx context.Context) error {
 	}
 	return nil
 }
+
+// GetPublisher retrieves the publisher from the context
+func (a *App) GetPublisher() messaging.Messaging {
+	if a.Context.Messaging == nil {
+		a.Context.Logger.Warn("Publisher not initialized")
+		return nil
+	}
+	return a.Context.Messaging
+}
+
+// GetHTTPServer retrieves the Fiber HTTP server from the context
+func (a *App) GetHTTPServer() *fiber.App {
+	return a.Context.HTTPServer
+}
+
+// GetPolicyManager retrieves the PolicyManager from the context
+func (a *App) GetPolicyManager() *policy.PolicyManager {
+	return a.Context.PolicyManager
+}
+
+// GetLogger retrieves the Logger from the context
+func (a *App) GetLogger() *zap.Logger {
+	return a.Context.Logger
+}
+
+// GetDB retrieves the PostgreSQL pool from the context
+func (a *App) GetDB() *pgxpool.Pool {
+	return a.Context.DB
+}
+
+// GetConfig retrieves the ConfigManager from the context
+func (a *App) GetConfig() config.ConfigManager {
+	return a.Context.Config
+}
+
+// GetServices retrieves the ServiceRegistry from the context
+func (a *App) GetServices() *ServiceRegistry {
+	return a.Context.Services
+}
+
+// GetBaseContext retrieves the base context
+func (a *App) GetBaseContext() context.Context {
+	return a.Context.Context
+}

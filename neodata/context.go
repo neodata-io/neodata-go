@@ -45,7 +45,3 @@ func NewContext(
 		Services:      &ServiceRegistry{}, // Initialize the service registry
 	}
 }
-
-func (ctx *NeoCtx) GetPublisher() messaging.Messaging {
-	return ctx.Messaging
-}
