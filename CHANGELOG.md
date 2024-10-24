@@ -1,3 +1,10 @@
+## [1.4.8](https://github.com/neodata-io/neodata-go/compare/v1.4.7...v1.4.8) (2024-10-24)
+
+
+### Bug Fixes
+
+* dont start http server ([22a0c5c](https://github.com/neodata-io/neodata-go/commit/22a0c5ce04c07706ec4d55c0a4a93f7cf5404982))
+
 ## [1.4.7](https://github.com/neodata-io/neodata-go/compare/v1.4.6...v1.4.7) (2024-10-24)
 
 
