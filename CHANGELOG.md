@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/neodata-io/neodata-go/compare/v1.4.4...v1.4.5) (2024-10-24)
+
+
+### Bug Fixes
+
+* added getters ([7f10d62](https://github.com/neodata-io/neodata-go/commit/7f10d62e4f971c37b23a7e7dac0e247d0305dba7))
+
 ## [1.4.4](https://github.com/neodata-io/neodata-go/compare/v1.4.3...v1.4.4) (2024-10-24)
 
 
