@@ -1,6 +1,8 @@
 package neodata
 
 import (
+	"context"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/neodata-io/neodata-go/config"
@@ -11,6 +13,7 @@ import (
 
 // Context encapsulates shared dependencies for the microservice
 type NeoCtx struct {
+	Context       context.Context // Add the base context here
 	HTTPServer    *fiber.App
 	PolicyManager *policy.PolicyManager
 	Messaging     messaging.Messaging
@@ -23,6 +26,7 @@ type NeoCtx struct {
 // NewContext initializes a new Neo Context
 // Components can be nil if not used by the microservice.
 func NewContext(
+	context context.Context,
 	httpServer *fiber.App,
 	policyManager *policy.PolicyManager,
 	messaging messaging.Messaging,
@@ -31,6 +35,7 @@ func NewContext(
 	db *pgxpool.Pool,
 ) *NeoCtx {
 	return &NeoCtx{
+		Context:       context,
 		Logger:        logger,
 		DB:            db,
 		Messaging:     messaging,
