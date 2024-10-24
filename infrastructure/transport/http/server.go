@@ -3,7 +3,6 @@ package http
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/gofiber/fiber/v3"
@@ -30,8 +29,7 @@ func StartServer(app *fiber.App, cfg *config.AppConfig) (*fiber.App, error) {
 	if err := app.Listen(fmt.Sprintf(":%d", cfg.App.Port), fiber.ListenConfig{
 		DisableStartupMessage: true,
 	}); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-		return nil, err
+		return nil, fmt.Errorf("failed to start server: %v", err)
 	}
 
 	return app, nil
