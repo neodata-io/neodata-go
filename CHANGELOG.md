@@ -1,3 +1,10 @@
+## [1.4.15](https://github.com/neodata-io/neodata-go/compare/v1.4.14...v1.4.15) (2024-10-25)
+
+
+### Bug Fixes
+
+* cors for dev ([5fbc272](https://github.com/neodata-io/neodata-go/commit/5fbc2722d14d3d2db95ef747b107a880b2c23dae))
+
 ## [1.4.14](https://github.com/neodata-io/neodata-go/compare/v1.4.13...v1.4.14) (2024-10-25)
 
 
