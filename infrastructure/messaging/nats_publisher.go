@@ -3,7 +3,6 @@ package messaging
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/nats-io/nats.go/jetstream"
@@ -31,11 +30,8 @@ func (p *Publisher) Publish(ctx context.Context, subject string, data []byte) (*
 	// A helper method accepting subject and data as parameters
 	ack, err := p.jetStream.Publish(ctx, subject, data)
 	if err != nil {
-		log.Printf("Failed to publish event to subject %s: %v", subject, err)
-		return nil, err
+		return nil, fmt.Errorf("failed to publish event to subject %s: %v", subject, err)
 	}
-
-	fmt.Printf("Published msg with sequence number %d on stream %q", ack.Sequence, ack.Stream)
 
 	return ack, nil
 }
