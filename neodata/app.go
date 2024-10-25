@@ -33,12 +33,21 @@ func New(opts ...Option) (*App, error) {
 		return nil, fmt.Errorf("could not load configuration: %v", err)
 	}
 
-	// Create a base context with default components
-	neoCtx := NewContext(ctx, nil, nil, nil, nil, cfgManager, nil)
+	// Step 2: Initialize the default logger (ensures a logger is always available)
+	appConfig := cfgManager.GetAppConfig()
+	log, err := logger.InitServiceLogger(appConfig)
+	if err != nil {
+		return nil, fmt.Errorf("failed to initialize default logger: %v", err)
+	}
 
-	// Apply options (e.g., Logger, DB, NATS, etc.)
+	// Step 3: Create a base context with the initialized logger
+	neoCtx := NewContext(ctx, nil, nil, nil, log, cfgManager, nil)
+
+	// Step 4: Apply additional options (Logger override, DB, NATS, HTTP Server, etc.)
 	for _, opt := range opts {
-		opt(neoCtx)
+		if err := opt(neoCtx); err != nil {
+			return nil, fmt.Errorf("failed to apply option: %v", err)
+		}
 	}
 
 	return &App{
@@ -114,7 +123,14 @@ func WithPolicyManager(policyManger ...*policy.PolicyManager) Option {
 func WithHTTPServer(httpServer ...*fiber.App) Option {
 	return func(ctx *NeoCtx) error {
 		appConfig := ctx.Config.GetAppConfig()
-		fiberApp := http.NewHTTPServer(appConfig)
+		// Ensure that the logger is initialized
+		if ctx.Logger == nil {
+			return fmt.Errorf("logger is required but not initialized")
+		}
+
+		// Pass the logger to the HTTP server
+		fiberApp := http.NewHTTPServer(appConfig, ctx.Logger)
+
 		ctx.HTTPServer = fiberApp
 		return nil
 	}

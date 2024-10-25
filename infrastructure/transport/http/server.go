@@ -7,10 +7,11 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/neodata-io/neodata-go/config"
+	"go.uber.org/zap"
 )
 
 // SetupHTTPServer initializes a new HTTP server with the provided configuration and middleware.
-func NewHTTPServer(cfg *config.AppConfig) *fiber.App {
+func NewHTTPServer(cfg *config.AppConfig, logger *zap.Logger) *fiber.App {
 	app := fiber.New(fiber.Config{
 		ReadTimeout:  cfg.App.ReadTimeout * time.Second,
 		WriteTimeout: cfg.App.WriteTimeout * time.Second,
@@ -18,8 +19,8 @@ func NewHTTPServer(cfg *config.AppConfig) *fiber.App {
 	})
 
 	// Middleware setup
-	app.Use(LoggerMiddleware())        // Log all incoming requests
 	app.Use(CorrelationIDMiddleware()) // CorrelationIDMiddleware for all requests
+	app.Use(ZapLoggerMiddleware(logger))
 	// app.Use(RateLimiterMiddleware(100, time.Minute)) // Rate limiting for protected endpoints
 
 	return app

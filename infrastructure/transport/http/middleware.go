@@ -12,12 +12,36 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/neodata-io/neodata-go/domain/entities"
+	"go.uber.org/zap"
 )
 
 type ValidationResponse struct {
 	Valid bool   `json:"valid"`
 	Sub   string `json:"sub"`
 	Role  string `json:"role"`
+}
+
+// ZapLoggerMiddleware logs request details using Zap logger
+func ZapLoggerMiddleware(logger *zap.Logger) fiber.Handler {
+	return func(c fiber.Ctx) error {
+		start := time.Now() // Capture start time
+
+		err := c.Next() // Process request
+
+		// Calculate latency
+		latency := time.Since(start)
+
+		// Log details of the request
+		logger.Info("Request",
+			zap.String("method", c.Method()),                                  // HTTP method (GET, POST, etc.)
+			zap.String("path", c.Path()),                                      // Request path
+			zap.Int("status", c.Response().StatusCode()),                      // Status code (200, 404, etc.)
+			zap.Duration("latency", latency),                                  // Time taken to process the request
+			zap.String("correlation_id", c.Locals("correlation_id").(string)), // Example: custom request ID
+		)
+
+		return err // Return any errors from the next handler
+	}
 }
 
 // LoggerMiddleware provides structured and stylized request logging.
