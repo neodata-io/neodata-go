@@ -25,6 +25,10 @@ func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) 
 
 	// Set encoder keys for structured logs (log level, message, caller)
 	config.EncoderConfig = zapcore.EncoderConfig{
+		TimeKey:      "timestamp",
+		LevelKey:     "level",
+		MessageKey:   "message",
+		CallerKey:    "caller",
 		EncodeLevel:  zapcore.CapitalColorLevelEncoder, // Enables color for log levels
 		EncodeCaller: zapcore.ShortCallerEncoder,       // Short file path for caller info
 
