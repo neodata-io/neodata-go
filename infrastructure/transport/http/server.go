@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/neodata-io/neodata-go/config"
 	"go.uber.org/zap"
 )
@@ -21,6 +22,11 @@ func NewHTTPServer(cfg *config.AppConfig, logger *zap.Logger) *fiber.App {
 	// Middleware setup
 	app.Use(CorrelationIDMiddleware()) // CorrelationIDMiddleware for all requests
 	app.Use(ZapLoggerMiddleware(logger))
+
+	if cfg.App.Env == "dev" {
+		// Allow all methods and headers from localhost for development purposes
+		app.Use(cors.New())
+	}
 	// app.Use(RateLimiterMiddleware(100, time.Minute)) // Rate limiting for protected endpoints
 
 	return app
