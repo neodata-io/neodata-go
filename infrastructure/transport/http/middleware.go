@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v3/middleware/limiter"
 	"github.com/gofiber/fiber/v3/middleware/logger"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"github.com/neodata-io/neodata-go/domain/entities"
 )
 
@@ -36,6 +37,23 @@ func RateLimiterMiddleware(maxRequests int, duration time.Duration) fiber.Handle
 	})
 }
 
+func CorrelationIDMiddleware() fiber.Handler {
+	return func(c fiber.Ctx) error {
+		// Check if Correlation ID exists in the incoming request header
+		correlationID := c.Get("X-Correlation-ID")
+		if correlationID == "" {
+			// Generate a new Correlation ID if not provided
+			correlationID = uuid.New().String()
+			c.Set("X-Correlation-ID", correlationID)
+		}
+
+		// Attach the Correlation ID to the request context for use in other functions
+		c.Locals("correlation_id", correlationID)
+
+		return c.Next()
+	}
+}
+
 // AuthMiddleware validates tokens by calling the auth service.
 func AuthMiddleware(secretKey string) fiber.Handler {
 	return func(c fiber.Ctx) error {
@@ -61,7 +79,7 @@ func AuthMiddleware(secretKey string) fiber.Handler {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "invalid or expired token"})
 		}
 
-		// Extract claims and store user information in context for use in handlers.
+		// Extract claims and store user data in context
 		if claims, ok := token.Claims.(*entities.Claims); ok && token.Valid {
 			c.Locals("userID", claims.UserID)
 			c.Locals("abilities", claims.Abilities)
