@@ -1,3 +1,10 @@
+## [1.4.12](https://github.com/neodata-io/neodata-go/compare/v1.4.11...v1.4.12) (2024-10-25)
+
+
+### Bug Fixes
+
+* logger http ([f150734](https://github.com/neodata-io/neodata-go/commit/f1507341308467db79ae68f52f69bdae8cbddc15))
+
 ## [1.4.11](https://github.com/neodata-io/neodata-go/compare/v1.4.10...v1.4.11) (2024-10-25)
 
 
