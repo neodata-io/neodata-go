@@ -1,3 +1,11 @@
+## [1.4.10](https://github.com/neodata-io/neodata-go/compare/v1.4.9...v1.4.10) (2024-10-25)
+
+
+### Bug Fixes
+
+* CorrelationIDMiddleware ([cbfd2f8](https://github.com/neodata-io/neodata-go/commit/cbfd2f848fe0ab1a06ec29e980a723ccf672b4c6))
+* loggermiddleware ([9e776cd](https://github.com/neodata-io/neodata-go/commit/9e776cd9a07aa8edb1e70be9b43f8ab0a1d065eb))
+
 ## [1.4.9](https://github.com/neodata-io/neodata-go/compare/v1.4.8...v1.4.9) (2024-10-24)
 
 
