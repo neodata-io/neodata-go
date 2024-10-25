@@ -2,6 +2,7 @@ package http
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -19,14 +20,14 @@ type ValidationResponse struct {
 	Role  string `json:"role"`
 }
 
-// LoggerMiddleware provides standardized request logging.
+// LoggerMiddleware provides structured and stylized request logging.
 func LoggerMiddleware() fiber.Handler {
 	return logger.New(logger.Config{
-		Format:     "[${time}] ${status} - ${method} ${path} ${latency}\n",
-		TimeFormat: "2006-01-02 15:04:05",
+		Format:     "[${time}] ${status} - ${method} ${path} ${latency} ${locals:requestid} ${body} \n",
+		TimeFormat: "15:04:05",
 		TimeZone:   "Local",
+		Output:     os.Stdout, // Ensures output to standard log console.
 	})
-
 }
 
 // RateLimiterMiddleware provides rate limiting based on request count per time unit.
