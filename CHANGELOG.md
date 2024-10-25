@@ -1,3 +1,10 @@
+## [1.4.14](https://github.com/neodata-io/neodata-go/compare/v1.4.13...v1.4.14) (2024-10-25)
+
+
+### Bug Fixes
+
+* time logger ([f4e2dd4](https://github.com/neodata-io/neodata-go/commit/f4e2dd40da713a4a287ba803d22e6d16b883c8ea))
+
 ## [1.4.13](https://github.com/neodata-io/neodata-go/compare/v1.4.12...v1.4.13) (2024-10-25)
 
 
