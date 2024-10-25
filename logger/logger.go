@@ -29,6 +29,7 @@ func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) 
 		LevelKey:     "level",
 		MessageKey:   "message",
 		CallerKey:    "caller",
+		EncodeTime:   zapcore.RFC3339TimeEncoder,
 		EncodeLevel:  zapcore.CapitalColorLevelEncoder, // Enables color for log levels
 		EncodeCaller: zapcore.ShortCallerEncoder,       // Short file path for caller info
 
