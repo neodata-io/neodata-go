@@ -30,9 +30,10 @@ type NeoCtx struct {
 // Components can be nil if not used by the microservice.
 func newContext(ctx context.Context, l *zap.Logger, cfg *config.AppConfig) (*NeoCtx, error) {
 	return &NeoCtx{
-		Context: ctx,
-		Logger:  l,
-		Config:  cfg,
+		Context:  ctx,
+		Logger:   l,
+		Config:   cfg,
+		Services: &ServiceRegistry{},
 	}, nil
 }
 
