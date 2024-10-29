@@ -23,7 +23,7 @@ type NeoCtx struct {
 	httpServer    *fiber.App
 	policyManager *policy.PolicyManager
 	messaging     messaging.Messaging
-	services      *ServiceRegistry // Add a dynamic service registry
+	Services      *ServiceRegistry // Add a dynamic service registry
 }
 
 // NewContext initializes a new Neo Context
@@ -34,28 +34,6 @@ func newContext(ctx context.Context, l *zap.Logger, cfg *config.AppConfig) (*Neo
 		Logger:  l,
 		Config:  cfg,
 	}, nil
-}
-
-// getServiceRegistry initializes and returns the ServiceRegistry if not already set.
-func (n *NeoCtx) getServiceRegistry() *ServiceRegistry {
-	if n.services == nil {
-		n.services = &ServiceRegistry{}
-		n.Logger.Info("Service registry initialized")
-	}
-	return n.services
-}
-
-// GetService retrieves a service by name from the ServiceRegistry within NeoCtx.
-// Logs error if service is not found.
-func (n *NeoCtx) GetService(name string) (interface{}, error) {
-	serviceRegistry := n.getServiceRegistry()
-	service, exists := serviceRegistry.Get(name)
-	if !exists {
-		n.Logger.Error("Service not found in registry", zap.String("service_name", name))
-		return nil, fmt.Errorf("service %s not found in registry", name)
-	}
-	n.Logger.Info("Service retrieved successfully", zap.String("service_name", name))
-	return service, nil
 }
 
 // GetDB retrieves the database pool, logging an error if it is not configured.
