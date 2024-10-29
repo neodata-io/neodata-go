@@ -16,9 +16,8 @@ import (
 // encapsulates dependency management and provides a structured way to access shared services.
 type NeoCtx struct {
 	Context context.Context
-
-	Logger *zap.Logger
-	Config config.ConfigManager // Store the interface, not a pointer to the interface
+	Config  *config.AppConfig
+	Logger  *zap.Logger // Injected from the main application to enable structured logging
 
 	db            *pgxpool.Pool
 	httpServer    *fiber.App
@@ -29,73 +28,82 @@ type NeoCtx struct {
 
 // NewContext initializes a new Neo Context
 // Components can be nil if not used by the microservice.
-func newContext(ctx context.Context, l *zap.Logger, cfgMngr config.ConfigManager) (*NeoCtx, error) {
-
+func newContext(ctx context.Context, l *zap.Logger, cfg *config.AppConfig) (*NeoCtx, error) {
 	return &NeoCtx{
 		Context: ctx,
 		Logger:  l,
-		Config:  cfgMngr,
+		Config:  cfg,
 	}, nil
 }
 
-// GetServiceRegistry initializes and returns the ServiceRegistry if it's not already set.
+// getServiceRegistry initializes and returns the ServiceRegistry if not already set.
 func (n *NeoCtx) getServiceRegistry() *ServiceRegistry {
 	if n.services == nil {
 		n.services = &ServiceRegistry{}
+		n.Logger.Info("Service registry initialized")
 	}
 	return n.services
 }
 
 // GetService retrieves a service by name from the ServiceRegistry within NeoCtx.
+// Logs error if service is not found.
 func (n *NeoCtx) GetService(name string) (interface{}, error) {
-	// Ensure the ServiceRegistry is initialized
 	serviceRegistry := n.getServiceRegistry()
-
-	// Fetch the service by name
 	service, exists := serviceRegistry.Get(name)
 	if !exists {
+		n.Logger.Error("Service not found in registry", zap.String("service_name", name))
 		return nil, fmt.Errorf("service %s not found in registry", name)
 	}
-
+	n.Logger.Info("Service retrieved successfully", zap.String("service_name", name))
 	return service, nil
 }
 
-// GetLogger returns the logger, defaulting to a no-op logger if none is set.
-func (n *NeoCtx) GetLogger() *zap.Logger {
-	return n.Logger
-}
-
+// GetDB retrieves the database pool, logging an error if it is not configured.
 func (n *NeoCtx) GetDB() (*pgxpool.Pool, error) {
 	if n.db == nil {
+		n.Logger.Error("Database not configured")
 		return nil, fmt.Errorf("database not configured")
 	}
+	n.Logger.Info("Database retrieved successfully")
 	return n.db, nil
 }
 
+// GetHTTPServer retrieves the HTTP server instance, logging an error if it is not configured.
 func (n *NeoCtx) GetHTTPServer() (*fiber.App, error) {
 	if n.httpServer == nil {
+		n.Logger.Error("HTTP server not configured")
 		return nil, fmt.Errorf("HTTP server not configured")
 	}
+	n.Logger.Info("HTTP server retrieved successfully")
 	return n.httpServer, nil
 }
 
+// GetPolicyManager retrieves the policy manager, logging an error if it is not configured.
 func (n *NeoCtx) GetPolicyManager() (*policy.PolicyManager, error) {
 	if n.policyManager == nil {
+		n.Logger.Error("Policy manager not configured")
 		return nil, fmt.Errorf("policy manager not configured")
 	}
+	n.Logger.Info("Policy manager retrieved successfully")
 	return n.policyManager, nil
 }
 
+// GetPublisher retrieves the messaging publisher, logging an error if it is not configured.
 func (n *NeoCtx) GetPublisher() (messaging.Messaging, error) {
 	if n.messaging == nil {
+		n.Logger.Error("Messaging client not configured")
 		return nil, fmt.Errorf("messaging client not configured")
 	}
+	n.Logger.Info("Messaging publisher retrieved successfully")
 	return n.messaging, nil
 }
 
+// GetSubscriber retrieves the messaging subscriber, logging an error if it is not configured.
 func (n *NeoCtx) GetSubscriber() (messaging.Messaging, error) {
 	if n.messaging == nil {
+		n.Logger.Error("Messaging client not configured")
 		return nil, fmt.Errorf("messaging client not configured")
 	}
+	n.Logger.Info("Messaging subscriber retrieved successfully")
 	return n.messaging, nil
 }

@@ -1,6 +1,7 @@
 package tracing
 
 import (
+	neodata "github.com/neodata-io/neodata-go/infrastructure/metrics"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/sdk/resource"
@@ -29,6 +30,6 @@ func NewTracer(serviceName string) (*Tracer, error) {
 	return &Tracer{TracerProvider: provider}, nil
 }
 
-func (n *NeoCtx) GetTracer(name string) trace.Tracer {
+func (n *neodata.NeoCtx) GetTracer(name string) trace.Tracer {
 	return n.TracerProvider.Tracer(name)
 }

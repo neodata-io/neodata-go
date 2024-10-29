@@ -14,13 +14,11 @@ import (
 	"go.uber.org/zap"
 )
 
-// App is the main struct that manages all components and services of the application.
-//
-//	handles the lifecycle and high-level initialization of the app.
+// App manages the lifecycle and high-level initialization of the application.
 type App struct {
-	ConfigManager config.ConfigManager // Core config accessed from App
-	Logger        *zap.Logger          // Core logger accessed from App
-	Context       *NeoCtx              // Scoped services within NeoCtx
+	Config  *config.AppConfig // Application configuration
+	Logger  *zap.Logger       // Application logger
+	Context *NeoCtx           // Neo context for scoped services
 }
 
 // Option defines a function that modifies the Neo Context
@@ -28,24 +26,26 @@ type Option func(*NeoCtx) error
 
 // New initializes the application with options for services
 func New(options ...Option) (*App, error) {
-	// Step 1: Load Configuration
+	// Load Configuration
 	cfgManager, err := config.NewConfigManager("./config/config.yaml")
 	if err != nil {
 		return nil, fmt.Errorf("could not load configuration: %w", err)
 	}
+	cfg := cfgManager.GetAppConfig()
 
-	// Step 2: Initialize the default logger (ensures a logger is always available)
-	log, err := logger.InitServiceLogger(cfgManager.GetAppConfig())
+	/// Initialize Logger
+	log, err := logger.InitServiceLogger(cfg)
 	if err != nil {
 		return nil, fmt.Errorf("failed to initialize default logger: %w", err)
 	}
 
-	// Step 3: Create a base context with the initialized logger
-	neoCtx, err := newContext(context.Background(), log, cfgManager)
+	// Step 3: Create Base Context with Config and Logger references
+	neoCtx, err := newContext(context.Background(), log, cfg)
 	if err != nil {
 		return nil, err
 	}
 
+	// Apply Options
 	for _, option := range options {
 		if err := option(neoCtx); err != nil {
 			return nil, fmt.Errorf("failed to apply option: %w", err)
@@ -53,32 +53,38 @@ func New(options ...Option) (*App, error) {
 	}
 
 	return &App{
-		Context:       neoCtx,
-		Logger:        log,
-		ConfigManager: cfgManager,
+		Context: neoCtx,
+		Logger:  log,
+		Config:  cfgManager.GetAppConfig(),
 	}, nil
 }
 
-// WithLogger configures the application logger.
-func WithLogger() Option {
-	return func(ctx *NeoCtx) error {
-		log, err := logger.InitServiceLogger(ctx.Config.GetAppConfig())
-		if err != nil {
-			return fmt.Errorf("failed to initialize logger: %v", err)
-		}
-		ctx.Logger = log
-		return nil
+// Run starts the application, including the HTTP server.
+func (a *App) Run() error {
+	a.Logger.Info("Starting application")
+	httpServer, err := a.Context.GetHTTPServer()
+	if err != nil {
+		a.Logger.Error("HTTP server not configured", zap.Error(err))
+		return fmt.Errorf("HTTP server not configured")
 	}
+	a.Logger.Info("Starting HTTP server")
+	if _, err := http.StartServer(httpServer, a.Config); err != nil {
+		a.Logger.Error("Failed to start HTTP server", zap.Error(err))
+		return err
+	}
+	return nil
 }
 
 // WithPostgres configures a PostgreSQL pool.
 func WithPostgres() Option {
 	return func(ctx *NeoCtx) error {
-		pool, err := postgres.NewPool(ctx.Context, ctx.Config.GetAppConfig())
+		pool, err := postgres.NewPool(ctx.Context, ctx.Config)
 		if err != nil {
-			return fmt.Errorf("failed to initialize PostgreSQL: %v", err)
+			ctx.Logger.Error("Failed to initialize PostgreSQL", zap.Error(err))
+			return fmt.Errorf("failed to initialize PostgreSQL: %w", err)
 		}
 		ctx.db = pool
+		ctx.Logger.Info("PostgreSQL connection pool initialized")
 		return nil
 	}
 }
@@ -87,13 +93,16 @@ func WithPostgres() Option {
 func WithNATS() Option {
 	return func(ctx *NeoCtx) error {
 		if ctx.messaging != nil {
+			ctx.Logger.Warn("Messaging client already configured, skipping NATS setup")
 			return nil
 		}
-		natsClient, err := messaging.NewNATSClient(ctx.Context, ctx.Config.GetAppConfig().Messaging.PubsubBroker)
+		natsClient, err := messaging.NewNATSClient(ctx.Context, ctx.Config.Messaging.PubsubBroker)
 		if err != nil {
-			return fmt.Errorf("error creating NATS client: %v", err)
+			ctx.Logger.Error("Failed to initialize NATS client", zap.Error(err))
+			return fmt.Errorf("failed to initialize NATS client: %w", err)
 		}
 		ctx.messaging = messaging.NewPublisher(natsClient, 0, 0)
+		ctx.Logger.Info("NATS messaging client initialized")
 		return nil
 	}
 }
@@ -101,11 +110,13 @@ func WithNATS() Option {
 // WithPolicyManager configures a Policy Manager.
 func WithPolicyManager() Option {
 	return func(ctx *NeoCtx) error {
-		policyManager, err := policy.NewPolicyManager(ctx.Config.GetAppConfig())
+		policyManager, err := policy.NewPolicyManager(ctx.Config)
 		if err != nil {
-			return fmt.Errorf("failed to initialize Policy Manager: %v", err)
+			ctx.Logger.Error("Failed to initialize Policy Manager", zap.Error(err))
+			return fmt.Errorf("failed to initialize Policy Manager: %w", err)
 		}
 		ctx.policyManager = policyManager
+		ctx.Logger.Info("Policy Manager initialized")
 		return nil
 	}
 }
@@ -113,11 +124,8 @@ func WithPolicyManager() Option {
 // WithHTTPServer configures an HTTP server.
 func WithHTTPServer() Option {
 	return func(ctx *NeoCtx) error {
-		if ctx.Logger == nil {
-			return fmt.Errorf("logger is required but not initialized")
-		}
-		ctx.httpServer = http.NewHTTPServer(ctx.Config.GetAppConfig(), ctx.Logger)
-		ctx.Logger.Info("HTTP server initialized with Fiber")
+		ctx.httpServer = http.NewHTTPServer(ctx.Config, ctx.Logger)
+		ctx.Logger.Info("HTTP server initialized")
 		return nil
 	}
 }
@@ -134,3 +142,14 @@ func (a *App) Shutdown(ctx context.Context) error {
 
 	return nil
 }
+
+/* func (n *neodata.NeoCtx) StartMetricsServer() {
+	http.Handle("/metrics", promhttp.Handler())
+	go func() {
+		n.Logger.Info("Starting metrics server on :9090/metrics")
+		if err := http.ListenAndServe(":9090", nil); err != nil {
+			n.Logger.Error("Metrics server failed", zap.Error(err))
+		}
+	}()
+}
+*/
