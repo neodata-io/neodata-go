@@ -147,3 +147,10 @@ func (pm *PolicyManager) CanUserPerformAction(user string, resource string, acti
 func (pm *PolicyManager) ResetPolicies() {
 	pm.e.ClearPolicy()
 }
+
+func (pm *PolicyManager) ReloadPolicies() error {
+	if err := pm.e.LoadPolicy(); err != nil {
+		return fmt.Errorf("failed to reload policies: %w", err)
+	}
+	return nil
+}

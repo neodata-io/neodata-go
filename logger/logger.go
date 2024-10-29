@@ -9,6 +9,12 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+type Logger interface {
+	Info(msg string, fields ...zap.Field)
+	Error(msg string, fields ...zap.Field)
+	// other logging methods...
+}
+
 // NewLogger creates a logger based on the log level and environment.
 func NewLogger(logLevel zapcore.Level, environment string) (*zap.Logger, error) {
 	var config zap.Config
