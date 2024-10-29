@@ -1,3 +1,10 @@
+## [1.4.16](https://github.com/neodata-io/neodata-go/compare/v1.4.15...v1.4.16) (2024-10-29)
+
+
+### Bug Fixes
+
+* rafactor a bit ([25b7885](https://github.com/neodata-io/neodata-go/commit/25b7885e1ccb48db4443895ad4d7dc593daf5d59))
+
 ## [1.4.15](https://github.com/neodata-io/neodata-go/compare/v1.4.14...v1.4.15) (2024-10-25)
 
 
