@@ -1,3 +1,10 @@
+## [1.4.17](https://github.com/neodata-io/neodata-go/compare/v1.4.16...v1.4.17) (2024-10-29)
+
+
+### Bug Fixes
+
+* refactor ([5d9b767](https://github.com/neodata-io/neodata-go/commit/5d9b767fa3801d3b16c0d2d1a4494cb493f6ba84))
+
 ## [1.4.16](https://github.com/neodata-io/neodata-go/compare/v1.4.15...v1.4.16) (2024-10-29)
 
 
