@@ -1,3 +1,10 @@
+## [1.4.19](https://github.com/neodata-io/neodata-go/compare/v1.4.18...v1.4.19) (2024-10-29)
+
+
+### Bug Fixes
+
+* services ([11f9a4f](https://github.com/neodata-io/neodata-go/commit/11f9a4f0f2cac28780876b9a060364f26897248c))
+
 ## [1.4.18](https://github.com/neodata-io/neodata-go/compare/v1.4.17...v1.4.18) (2024-10-29)
 
 
